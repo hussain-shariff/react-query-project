@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Button } from "@mui/material"
+import TextField from "@mui/material/TextField/TextField"
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  const handleSubmit = (e : React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+  }
+  
+	return (
+		<div className="min-h-screen bg-[#0b1829] py-20">
+			<form className=" flex justify-center gap-5" onSubmit={handleSubmit}>
+				<TextField
+					label="Todo"
+					variant="outlined"
+					color="secondary"
+					focused
+					InputProps={{ style: { color: "white" } }}
+				/>
+				<Button
+					type="submit"
+					size="large"
+					variant="contained"
+					color="secondary"
+				>
+					Add Todo
+				</Button>
+			</form>
+		</div>
+	)
 }
 
 export default App
