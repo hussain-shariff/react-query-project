@@ -7,7 +7,7 @@ import { updateTodo, deleteTodo } from "../api/todosApi"
 type TodoProps = {
 	todo: {
 		userId: number
-		id: number | string
+		id: string
 		title: string
 		completed: boolean
 	}
@@ -15,7 +15,6 @@ type TodoProps = {
 
 export const Todo = ({ todo }: TodoProps) => {
 	const queryClient = useQueryClient()
-
 	const deleteTodoMutation = useMutation(deleteTodo, {
 		onSuccess: () => {
 			queryClient.invalidateQueries("todos")
@@ -34,12 +33,10 @@ export const Todo = ({ todo }: TodoProps) => {
 					<Checkbox
 						color="secondary"
 						defaultChecked={todo.completed}
-						onChange={() =>
-							updateTodoMutation.mutate({
-								...todo,
-								completed: !todo.completed,
-							})
-						}
+						onChange={()=> updateTodoMutation.mutate({
+							...todo,
+							completed : !todo.completed
+						})}
 					/>
 				}
 				label={todo.title}

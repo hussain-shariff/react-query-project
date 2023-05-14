@@ -3,11 +3,12 @@ import { useQuery, useMutation, useQueryClient } from "react-query"
 import { getTodos, createTodo } from "../api/todosApi"
 import { Button } from "@mui/material"
 import TextField from "@mui/material/TextField/TextField"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { v4 as uuidv4 } from 'uuid';
 
 const TodoList = () => {
 	const queryClient = useQueryClient()
+	const [inputError, setinputError] = useState(false)
 	const { data, isLoading, isError, error } = useQuery("todos", getTodos)
 	const todoRef = useRef()
 
@@ -19,6 +20,10 @@ const TodoList = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		if (todoRef.current.value === ""){
+			setinputError(true)
+			return
+		}
 		const uniqueId = uuidv4();
 		addTodoMutation.mutate({
 			userId: 1,
@@ -27,6 +32,7 @@ const TodoList = () => {
 			completed: false,
 		})
 		todoRef.current.value = ""
+		setinputError(false)
 	}
 
 	if (isLoading) return <h1>Loading...</h1>
@@ -43,6 +49,8 @@ const TodoList = () => {
 		<>
 			<form className="mb-20 flex justify-center gap-5" onSubmit={handleSubmit}>
 				<TextField
+					error={inputError}
+					helperText={inputError ? "Write a Todo" : ""}
 					inputRef={todoRef}
 					label="Todo"
 					variant="outlined"

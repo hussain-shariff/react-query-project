@@ -1,19 +1,16 @@
 import axios from "axios"
-
-type deleteTodoProp = {
-	id : string | number
-}
+import { TodoProp, deleteTodoProp } from "../types"
 
 export const getTodos = async () => {
 	const res = await axios.get("http://localhost:3000/todos")
 	return res.data
 }
 
-export const createTodo = async (todo: any) => {
+export const createTodo = async (todo : TodoProp) => {
 	return await axios.post("http://localhost:3000/todos", todo)
 }
 
-export const updateTodo = async (todo : any) => {
+export const updateTodo = async (todo : TodoProp) => {
 	return await axios.patch(`http://localhost:3000/todos/${todo.id}`, todo)
 }
 
