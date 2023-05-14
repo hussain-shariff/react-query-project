@@ -35,9 +35,9 @@ const TodoList = () => {
 		setinputError(false)
 	}
 
-	if (isLoading) return <h1>Loading...</h1>
+	if (isLoading) return <h1 className="ml-10 text-4xl font-bold text-white">Loading...</h1>
 
-	if (isError) return <h1>{error.message}</h1>
+	if (isError) return <h1 className="ml-10 text-4xl font-bold text-white">{error.message}</h1>
 
 	const todoElements = data.map((todo: any) => (
 		<Todo
