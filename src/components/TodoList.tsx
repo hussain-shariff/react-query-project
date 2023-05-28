@@ -9,7 +9,9 @@ const TodoList = () => {
 	const queryClient = useQueryClient()
 	const [inputError, setinputError] = useState(false)
 	const { data, isLoading, isError, error } = useQuery("todos", getTodos)
+	
 	const todoRef = useRef()
+	
 
 	const addTodoMutation = useMutation(createTodo, {
 		onSuccess: () => {

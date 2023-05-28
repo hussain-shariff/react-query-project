@@ -1,26 +1,26 @@
 import { TodoProp, deleteTodoProp } from "../types"
-import { client } from "../App"
 import { GET_TODOS } from "../queries/queries"
 import { ADD_TODO, UPDATE_TODO, DELETE_TODO } from "../mutations/mutations"
+import axios from "axios"
 
 export const getTodos = async () => {
-	const response = await client.query({
+	const res = await axios.post("http://localhost:5000/graphql", {
 		query: GET_TODOS,
 	})
-	return response.data.getTodos
+	return res.data.data.getTodos
 }
 
 export const createTodo = async (todo: TodoProp) => {
-	const response = await client.mutate({
-		mutation: ADD_TODO,
+	const res = await axios.post("http://localhost:5000/graphql", {
+		query: ADD_TODO,
 		variables: { title: todo.title },
 	})
-	return response.data
+	return res.data.data
 }
 
 export const updateTodo = async (todo: TodoProp) => {
-	const response = await client.mutate({
-		mutation: UPDATE_TODO,
+	const response = await axios.post("http://localhost:5000/graphql", {
+		query: UPDATE_TODO,
 		variables: {
 			id: todo.id,
 			title: todo.title,
@@ -31,8 +31,8 @@ export const updateTodo = async (todo: TodoProp) => {
 }
 
 export const deleteTodo = async ({ id }: deleteTodoProp) => {
-	const response = await client.mutate({
-		mutation: DELETE_TODO,
+	const response = await axios.post("http://localhost:5000/graphql", {
+		query: DELETE_TODO,
 		variables: { id },
 	})
 	return response.data
