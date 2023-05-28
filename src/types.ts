@@ -1,17 +1,15 @@
 export type TodoProps = {
 	todo: {
-		userId: number
-		id: string
+		id ?: string
 		title: string
-		completed: boolean
+		completed ?: boolean
 	}
 }
 
 export type TodoProp = {
-		userId: number
-		id: string
-		title: string
-		completed: boolean
+		id ?: string
+		title : string
+		completed ?: boolean
 }
 
 export type deleteTodoProp = {

@@ -4,7 +4,6 @@ import { getTodos, createTodo } from "../api/todosApi"
 import { Button } from "@mui/material"
 import TextField from "@mui/material/TextField/TextField"
 import { useRef, useState } from "react"
-import { v4 as uuidv4 } from 'uuid';
 
 const TodoList = () => {
 	const queryClient = useQueryClient()
@@ -20,30 +19,27 @@ const TodoList = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		if (todoRef.current.value === ""){
+		if (todoRef.current.value === "") {
 			setinputError(true)
 			return
 		}
-		const uniqueId = uuidv4();
 		addTodoMutation.mutate({
-			userId: 1,
-			id: uniqueId,
 			title: todoRef.current.value,
-			completed: false,
 		})
 		todoRef.current.value = ""
 		setinputError(false)
 	}
 
-	if (isLoading) return <h1 className="ml-10 text-4xl font-bold text-white">Loading...</h1>
+	if (isLoading)
+		return <h1 className="ml-10 text-4xl font-bold text-white">Loading...</h1>
 
-	if (isError) return <h1 className="ml-10 text-4xl font-bold text-white">{error.message}</h1>
+	if (isError)
+		return (
+			<h1 className="ml-10 text-4xl font-bold text-white">{error.message}</h1>
+		)
 
 	const todoElements = data.map((todo: any) => (
-		<Todo
-			key={todo.id}
-			todo = {todo}
-		/>
+		<Todo key={todo.id} todo={todo} />
 	))
 	return (
 		<>
